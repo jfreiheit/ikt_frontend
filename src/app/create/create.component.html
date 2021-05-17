@@ -1,0 +1,55 @@
+<div class="container" novalidate>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>Post hinzufügen</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div [formGroup]="formGroup" class="my-form">
+
+                <mat-form-field class="form-element">
+                    <mat-label>Post title</mat-label>
+                    <input matInput placeholder="Titel" formControlName="inp_title" />
+                    <mat-error *ngIf="!inp_title.valid && inp_title.touched">
+                        {{ titleAlert }}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-element">
+                    <mat-label>Post location</mat-label>
+                    <input matInput placeholder="Location" formControlName="inp_location" />
+                    <mat-error *ngIf="!inp_location.valid && inp_location.touched">
+                        {{ titleAlert }}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <div>
+                        <mat-toolbar>
+                            <!-- Display files names -->
+                            <input matInput [(ngModel)]="fileAttr" readonly name="name" />
+
+                            <!-- Browse Button -->
+                            <button mat-flat-button color="primary">
+                        Browse File
+                      </button>
+                        </mat-toolbar>
+
+                        <!-- Fetch selected filed on change -->
+                        <input type="file" #fileInput id="uploadFile" (change)="uploadFileEvt($event)" name="uploadFile" multiple="multiple" accept="image/*" />
+                    </div>
+                </mat-form-field>
+
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="form-element">
+                <button mat-stroked-button (click)="onSubmit()" color="default" class="button" [disabled]="!formGroup.valid">
+          Add post
+        </button>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+    <div *ngIf="imgBase64">
+        {{ imgBase64 }}
+    </div>
+</div>
